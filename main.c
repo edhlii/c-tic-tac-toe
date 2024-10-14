@@ -62,8 +62,8 @@ bool checkTie() {
 
 int minimax(int depth, int isMaximizing) {
 	int score = evaluate();
-	if (score == 10) return score;
-	if (score == -10) return score;
+	if (score == 10) return score - depth;
+	if (score == -10) return score + depth;
 	if (checkTie()) return 0;
 	if (isMaximizing) {
 		int best = -1000;
@@ -183,6 +183,5 @@ void process() {
 int main(int argc, char **argv) {
 	init();
 	process();
-	// printf("%d", max(2, 5));
 	return 0;
 }
