@@ -3,7 +3,7 @@
 
 bool quit = false;
 int board[4][4];
-int start_game;
+int start_game, max_depth;
 
 int max(int a, int b) {
 	if (a >= b) return a;
@@ -64,6 +64,7 @@ int minimax(int depth, int isMaximizing) {
 	int score = evaluate();
 	if (score == 10) return score - depth;
 	if (score == -10) return score + depth;
+	if (depth == max_depth) return score;
 	if (checkTie()) return 0;
 	if (isMaximizing) {
 		int best = -1000;
@@ -138,8 +139,21 @@ void init() {
 	printf("Yes (1)       No (2)\n");
 	printf("Your option: ");
 	scanf("%d", &start_game);
+	if (start_game == 1) {
+		printf("Choose difficulty:\n");
+		printf("1. Easy\n2. Hard af\n");
+		int difficulty; scanf("%d", &difficulty);
+		if (difficulty == 1) max_depth = 1;
+		if (difficulty == 2) max_depth = -1;
+		return;
+	}
 	if (start_game == 2) {
 		printf("See u next time!\n");
+		quit = true;
+		return;
+	}
+	if (start_game != 1) {
+		printf("What the fuk are u trying???\n");
 		quit = true;
 		return;
 	}
